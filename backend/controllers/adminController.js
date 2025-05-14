@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 
 exports.getAllReservations = async (req, res) => {
   try {
-    // ⚡ Verify admin access
+    //  Verify admin access
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Only admins can view all reservations.' });
     }
