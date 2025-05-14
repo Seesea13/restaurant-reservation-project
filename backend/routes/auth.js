@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
-const authMiddleware = require('../middleware/authMiddleware'); // ✅ Verify JWT
+const authMiddleware = require('../middleware/authMiddleware'); 
 const bcrypt = require('bcrypt');
 const db = require('../models'); // Used to access User model
 
