@@ -76,7 +76,7 @@ backend/
 
 ### API 示例 | Sample APIs | Παραδείγματα API
 
-| 方法/method/μέθοδος | 路径 | 功能 | Description | Περιγραφή |
+| 方法/method/μέθοδος | 路径/path | 功能 | Description | Περιγραφή |
 |------|------|------|-------------|-----------|
 | POST | `/auth/register` | 注册用户 | Register new user | Εγγραφή |
 | POST | `/auth/login` | 登录 | Login user & get JWT | Σύνδεση |
