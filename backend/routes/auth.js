@@ -3,13 +3,13 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/authMiddleware'); // ✅ Verify JWT
 const bcrypt = require('bcrypt');
-const db = require('../models'); // ✅ Used to access User model
+const db = require('../models'); // Used to access User model
 
 // Register & Login
 router.post('/register', authController.registerUser);
 router.post('/login', authController.loginUser);
 
-// ✅ New: Change password endpoint
+// New: Change password endpoint
 router.post('/change-password', authMiddleware, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   const userId = req.user.id;
