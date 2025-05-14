@@ -1,0 +1,13 @@
+
+# Node.js
+**/node_modules/
+**/.env
+
+# Expo / React Native
+.expo/
+.expo-shared/
+*.log
+
+# macOS & Windows
+.DS_Store
+Thumbs.db
