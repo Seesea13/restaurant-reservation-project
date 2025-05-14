@@ -1,5 +1,5 @@
 
-# 🍽️ Restaurant Reservation System | Σύστημα Κρατήσεων Εστιατορίου
+#  Restaurant Reservation System | Σύστημα Κρατήσεων Εστιατορίου
 
 这是一个基于 Mobile & Distributed Systems 理念开发的全栈项目，允许用户通过移动设备预订餐厅座位，并支持管理员进行餐厅和预订的管理。  
 > This is a full-stack project based on Mobile & Distributed Systems, allowing users to book restaurant tables via mobile devices and enabling administrators to manage reservations and restaurant data.  
