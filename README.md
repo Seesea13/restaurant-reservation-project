@@ -54,8 +54,11 @@ DB_NAME=restaurant_reservation
 JWT_SECRET=your_jwt_secret
 ```
 ### 运行服务器前要确保有数据库:restaurant_reservation
-> Before running the server, make sure there is a database:restaurant_reservation
-> Πριν εκτελέσετε τον διακομιστή, βεβαιωθείτε ότι υπάρχει μια βάση δεδομένων:restaurant_reservation
+
+> Before running the server, make sure there is a database: restaurant_reservation
+
+> Πριν εκτελέσετε τον διακομιστή, βεβαιωθείτε ότι υπάρχει μια βάση δεδομένων: restaurant_reservation
+
 
 
 运行服务器：  
