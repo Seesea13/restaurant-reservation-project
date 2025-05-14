@@ -1,17 +1,88 @@
-## 📺 项目演示视频 | Project Demo Video | Βίντεο Παρουσίασης
+## 📺 Βίντεο Παρουσίασης | Project Demo Video | 项目演示视频
 
-[▶️ 点击观看演示 | Watch the demo | Δείτε την παρουσίαση](https://youtu.be/asZ7mtZ9c_A)
+[▶️ Δείτε την παρουσίαση | Watch the demo | 点击观看演示](https://youtu.be/asZ7mtZ9c_A)
 
 ![Demo Preview](https://img.youtube.com/vi/asZ7mtZ9c_A/hqdefault.jpg)
 
 
 
 
-🔽 **选择你的语言 | Choose your language | Επιλέξτε γλώσσα** 🔽
+🔽 **选择你的语言Επιλέξτε γλώσσα | Choose your language | 选择你的语言** 🔽
 
+- 🇬🇷 [Ελληνικά](#σύστημα-κρατήσεων-εστιατορίου)
 - 🇨🇳 [中文](#餐厅预订系统)
 - 🇺🇸 [English](#restaurant-reservation-system)
-- 🇬🇷 [Ελληνικά](#σύστημα-κρατήσεων-εστιατορίου)
+
+---
+
+# Σύστημα Κρατήσεων Εστιατορίου
+
+Πρόκειται για μια πλήρη εφαρμογή βασισμένη στα Mobile & Distributed Systems, επιτρέποντας στους χρήστες να κάνουν κρατήσεις και στους διαχειριστές να διαχειρίζονται τα δεδομένα.
+
+## Backend – Node.js με Express
+
+Το backend είναι RESTful API που χρησιμοποιεί Sequelize ORM και JWT για αυθεντικοποίηση με υποστήριξη RBAC.
+
+### Τεχνολογίες
+
+* Express.js – Πλαίσιο Web
+* MariaDB – Βάση δεδομένων
+* Sequelize – ORM
+* JWT – Αυθεντικοποίηση
+* bcryptjs – Κρυπτογράφηση κωδικών
+* dotenv – Διαχείριση περιβάλλοντος
+* Postman – Έλεγχος API
+
+### Ρύθμιση του baseURL στο Frontend
+
+* baseURL: `'http://η-τοπική-σας-IP:3000/'`
+
+### Εγκατάσταση & Εκκίνηση
+
+```bash
+npm install
+```
+
+Ρυθμίστε τις μεταβλητές περιβάλλοντος στο `.env`:
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=restaurant_reservation
+JWT_SECRET=your_jwt_secret
+```
+
+Βεβαιωθείτε ότι υπάρχει μια βάση δεδομένων: `restaurant_reservation` πριν την εκκίνηση.
+
+Εκκινήστε τον server:
+
+```bash
+node server.js
+```
+
+### Δομή Έργου
+
+```
+backend/
+├── controllers/
+├── routes/
+├── middleware/
+├── models/
+├── config/
+└── server.js
+```
+
+### Παραδείγματα API
+
+| Μέθοδος | Διαδρομή              | Περιγραφή                        |
+| ------- | --------------------- | -------------------------------- |
+| POST    | `/auth/register`      | Εγγραφή νέου χρήστη              |
+| POST    | `/auth/login`         | Σύνδεση χρήστη & λήψη JWT        |
+| GET     | `/restaurants`        | Λίστα εστιατορίων                |
+| POST    | `/reservations`       | Κάντε κράτηση (auth)             |
+| GET     | `/admin/reservations` | Όλες οι κρατήσεις (διαχειριστής) |
 
 ---
 
@@ -155,73 +226,3 @@ backend/
 | POST   | `/reservations`       | Make a reservation (auth)     |
 | GET    | `/admin/reservations` | View all reservations (admin) |
 
----
-
-# Σύστημα Κρατήσεων Εστιατορίου
-
-Πρόκειται για μια πλήρη εφαρμογή βασισμένη στα Mobile & Distributed Systems, επιτρέποντας στους χρήστες να κάνουν κρατήσεις και στους διαχειριστές να διαχειρίζονται τα δεδομένα.
-
-## Backend – Node.js με Express
-
-Το backend είναι RESTful API που χρησιμοποιεί Sequelize ORM και JWT για αυθεντικοποίηση με υποστήριξη RBAC.
-
-### Τεχνολογίες
-
-* Express.js – Πλαίσιο Web
-* MariaDB – Βάση δεδομένων
-* Sequelize – ORM
-* JWT – Αυθεντικοποίηση
-* bcryptjs – Κρυπτογράφηση κωδικών
-* dotenv – Διαχείριση περιβάλλοντος
-* Postman – Έλεγχος API
-
-### Ρύθμιση του baseURL στο Frontend
-
-* baseURL: `'http://η-τοπική-σας-IP:3000/'`
-
-### Εγκατάσταση & Εκκίνηση
-
-```bash
-npm install
-```
-
-Ρυθμίστε τις μεταβλητές περιβάλλοντος στο `.env`:
-
-```env
-PORT=3000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=restaurant_reservation
-JWT_SECRET=your_jwt_secret
-```
-
-Βεβαιωθείτε ότι υπάρχει μια βάση δεδομένων: `restaurant_reservation` πριν την εκκίνηση.
-
-Εκκινήστε τον server:
-
-```bash
-node server.js
-```
-
-### Δομή Έργου
-
-```
-backend/
-├── controllers/
-├── routes/
-├── middleware/
-├── models/
-├── config/
-└── server.js
-```
-
-### Παραδείγματα API
-
-| Μέθοδος | Διαδρομή              | Περιγραφή                        |
-| ------- | --------------------- | -------------------------------- |
-| POST    | `/auth/register`      | Εγγραφή νέου χρήστη              |
-| POST    | `/auth/login`         | Σύνδεση χρήστη & λήψη JWT        |
-| GET     | `/restaurants`        | Λίστα εστιατορίων                |
-| POST    | `/reservations`       | Κάντε κράτηση (auth)             |
-| GET     | `/admin/reservations` | Όλες οι κρατήσεις (διαχειριστής) |
