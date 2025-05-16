@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, Alert, StyleSheet, TouchableOpacity, TextInput, Modal } from 'react-native';
+import {
+  View, Text, TextInput, Alert, StyleSheet,
+  TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../api/api';
+import Modal from 'react-native-modal';
 
 const SettingsScreen = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleLogout = async () => {
-    await AsyncStorage.removeItem('token');
-    await AsyncStorage.removeItem('user');
-    await AsyncStorage.removeItem('userRole');
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
+    await AsyncStorage.multiRemove(['token', 'user', 'userRole']);
+    navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
   };
 
   const handlePasswordChange = async () => {
@@ -24,11 +23,9 @@ const SettingsScreen = ({ navigation }) => {
       Alert.alert('Error', 'New passwords do not match');
       return;
     }
+
     try {
-      await api.post('/auth/change-password', {
-        oldPassword,
-        newPassword,
-      });
+      await api.post('/auth/change-password', { oldPassword, newPassword });
       Alert.alert('Success', 'Password changed successfully. Please log in again.');
       setModalVisible(false);
       setOldPassword('');
@@ -42,25 +39,25 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-
-      <TouchableOpacity
-        style={styles.optionButton}
-        onPress={() => setModalVisible(true)}
-      >
+      <TouchableOpacity style={styles.optionButton} onPress={() => setModalVisible(true)}>
         <Text style={styles.optionButtonText}>🔑 Change Password</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleLogout}
-      >
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutButtonText}>🚪 Log Out</Text>
       </TouchableOpacity>
 
-      {/* Change Password Modal */}
-      <Modal visible={modalVisible} animationType="slide" transparent>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
+      {/*New Modal with better keyboard handling */}
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+        avoidKeyboard
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={styles.modalWrapper}
+        >
+          <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled">
             <Text style={styles.title}>Change Password</Text>
 
             <Text style={styles.label}>Old Password</Text>
@@ -105,8 +102,8 @@ const SettingsScreen = ({ navigation }) => {
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
             </View>
-          </View>
-        </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </Modal>
     </View>
   );
@@ -123,9 +120,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f9fa',
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: 20,
     textAlign: 'center',
   },
   optionButton: {
@@ -152,18 +149,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
-  modalContainer: {
+  modalWrapper: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: Platform.OS === 'ios' ? 60 : 30,
   },
   modalContent: {
-    width: '85%',
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
-    elevation: 5,
+    marginHorizontal: 10,
   },
   label: {
     fontSize: 14,

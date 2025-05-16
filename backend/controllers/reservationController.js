@@ -40,3 +40,33 @@ exports.getMyReservations = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.updateReservation = async (req, res) => {
+  const { id } = req.params;
+  const { date, time, people_count } = req.body;
+
+  try {
+    const reservation = await db.Reservation.findByPk(id);
+
+    
+    if (!reservation) {
+      return res.status(404).json({ message: 'Reservation not found' });
+    }
+
+    
+    if (reservation.userId !== req.user.id) {
+      return res.status(403).json({ message: 'You are not allowed to edit this reservation' });
+    }
+
+    
+    reservation.date = date;
+    reservation.time = time;
+    reservation.people_count = people_count;
+    await reservation.save();
+
+    res.json({ message: 'Reservation updated successfully', reservation });
+  } catch (err) {
+    console.error('Update error:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

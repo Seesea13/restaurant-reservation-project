@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert , TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import api from '../api/api';
 
 const MyReservationsScreen = () => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -22,14 +24,21 @@ const MyReservationsScreen = () => {
     fetchReservations();
   }, []);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.card}>
-      <Text style={styles.restaurant}>{item.restaurant?.name || 'Unknown restaurant'}</Text>
-      <Text>📅 Date: {item.date}</Text>
-      <Text>🕒 Time: {item.time}</Text>
-      <Text>👥 People: {item.people_count}</Text>
-    </View>
-  );
+const renderItem = ({ item }) => (
+  <View style={styles.card}>
+    <Text style={styles.restaurant}>{item.restaurant?.name || 'Unknown restaurant'}</Text>
+    <Text>📅 Date: {item.date}</Text>
+    <Text>🕒 Time: {item.time}</Text>
+    <Text>👥 People: {item.people_count}</Text>
+
+    <TouchableOpacity
+      style={styles.editButton}
+      onPress={() => navigation.navigate('EditReservation', { reservation: item })}
+    >
+      <Text style={styles.editButtonText}>✏️ Edit</Text>
+    </TouchableOpacity>
+  </View>
+);
 
   if (loading) {
     return (
@@ -70,4 +79,16 @@ const styles = StyleSheet.create({
   restaurant: { fontSize: 18, fontWeight: 'bold', marginBottom: 4 },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   empty: { textAlign: 'center', marginTop: 40, fontSize: 16, color: '#666' },
+  editButton: {
+    marginTop: 10,
+    paddingVertical: 8,
+    backgroundColor: '#007BFF',
+    borderRadius: 6,
+    alignItems: 'center',
+  },
+  editButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+
 });

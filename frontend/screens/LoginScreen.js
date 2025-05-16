@@ -7,38 +7,32 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      const response = await api.post('/auth/login', { email, password });
-      const { token, user } = response.data;
+const handleLogin = async () => {
+  try {
+    const response = await api.post('/auth/login', { email, password });
+    const { token, user } = response.data;
 
-      // Save token
-      await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('user', JSON.stringify(user));
+    await AsyncStorage.setItem('userRole', user.role);
 
-      // Optionally save user info
-      await AsyncStorage.setItem('user', JSON.stringify(user));
-
-      // Save user role
-      await AsyncStorage.setItem('userRole', user.role);
-
-      // Navigate based on role
-      if (user.role === 'admin') {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'AdminReservations' }],
-        });
-      } else {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Restaurants' }],
-        });
-      }
-
-    } catch (error) {
-      console.error(error.response?.data || error.message);
-      Alert.alert('Login failed. Please check your email and password.');
+    if (user.role === 'admin') {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'AdminReservations' }],
+      });
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Restaurants' }],
+      });
     }
-  };
+
+  } catch (error) {
+    const message = error.response?.data?.message || 'Login failed. Please try again.';
+    Alert.alert('Login Error', message);
+  }
+};
 
   return (
     <View style={styles.container}>

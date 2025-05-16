@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RestaurantListScreen from './screens/RestaurantListScreen';
 import CreateReservationScreen from './screens/CreateReservationScreen';
+import EditReservationScreen from './screens/EditReservationScreen';
 import MyReservationsScreen from './screens/MyReservationsScreen';
 import AdminReservationsScreen from './screens/AdminReservationsScreen';
 import CreateRestaurantScreen from './screens/CreateRestaurantScreen';
@@ -22,6 +23,8 @@ export default function App() {
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Restaurants" component={RestaurantListScreen} />
         <Stack.Screen name="CreateReservation" component={CreateReservationScreen} />
+        <Stack.Screen name="EditReservation" component={EditReservationScreen} />
+
         <Stack.Screen
           name="MyReservations"
           component={MyReservationsScreen}
